@@ -12,3 +12,12 @@ def get_distance(landmark_list):
     (x1, y1), (x2, y2) = landmark_list[0], landmark_list[1]
     L = np.hypot(x2 - x1, y2 - y1)
     return np.interp(L, [0,1], [0,1000])
+
+def find_landmark_cordinates(frame: np.ndarray,processed,index:int) -> tuple:
+        frame_h, frame_w, _ = frame.shape
+        if processed.multi_hand_landmarks:
+                hand_landmarks = processed.multi_hand_landmarks[0]
+                x = int(hand_landmarks.landmark[index].x * frame_w)
+                y = int(hand_landmarks.landmark[index].y * frame_h)
+                return (x,y)
+        return None
